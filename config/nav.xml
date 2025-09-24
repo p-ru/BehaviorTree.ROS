@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+    <BehaviorTree ID="WaypointNavigation">
+        <ReactiveSequence>
+            <WaypointManager 
+                waypoints="{waypoints}"
+                waypoint_reached="{waypoint_reached}"
+                current_waypoint="{current_waypoint}"
+                waypoint_index="{waypoint_index}"
+                has_more_waypoints="{has_more_waypoints}"/>
+            
+            
+            
+            <Sequence>
+                <PrintWaypoint 
+                    waypoint="{current_waypoint}" 
+                    index="{waypoint_index}"/>
+                
+                <GoalStatusServer 
+                    waypoint_reached="{waypoint_reached}"/>
+                
+                
+            </Sequence>
+        </ReactiveSequence>
+    </BehaviorTree>
+</root>

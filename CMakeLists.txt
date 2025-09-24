@@ -12,6 +12,7 @@ set(ROS_DEPENDENCIES
     behaviortree_cpp_v3
     actionlib_msgs
     actionlib
+    geometry_msgs
     message_generation)
 
 find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDENCIES} )
@@ -70,6 +71,10 @@ add_executable(test_server test/test_server.cpp)
 add_dependencies(test_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(test_server ${catkin_LIBRARIES} )
 
+
+add_executable(waypoint_bt_node src/waypoint_bt_node.cpp)
+add_dependencies(waypoint_bt_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(waypoint_bt_node ${catkin_LIBRARIES} )
 ######################################################
 # INSTALL
 

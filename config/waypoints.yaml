@@ -1,0 +1,13 @@
+waypoints:
+  - x: -2.35
+    y: -0.332
+    z: 0.448
+    id: "start_point"
+
+
+  - x: -3.48
+    y: 0.627
+    z: 0.484
+    id: "point_1"
+
+

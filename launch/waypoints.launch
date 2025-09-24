@@ -1,0 +1,4 @@
+<launch>
+    <rosparam file="$(find behaviortree_ros)/config/waypoints.yaml" command="load"/>
+    <node name="server" pkg="behaviortree_ros" type="waypoint_bt_node" output="screen"/>
+</launch>
