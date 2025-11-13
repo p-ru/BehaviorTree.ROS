@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+    <BehaviorTree ID="WaypointNavigation">
+        <ReactiveSequence name="Mission">
+            <WaypointManager 
+                segment_completed="{segment_completed}"
+                
+                current_waypoint="{current_waypoint}"
+                waypoint_index="{waypoint_index}"
+                has_more_waypoints="{has_more_waypoints}"
+                waypoint_count="{waypoint_count}"
+            />
+            <!-- <KeepRunningUntilFailure>
+                <CheckCondition/>
+            </KeepRunningUntilFailure> -->
+
+            <!-- "action.CAMERA.StartShootPhoto." -->
+            
+            <Sequence name="Segment">
+                <StartSegment 
+                    segment_completed="{segment_completed}"/>
+
+                    <Sequence name="Tasks">
+                        <ApproachWaypoint 
+                            waypoint_reached="{waypoint_reached}"/>     
+                        <PerformAction name="RotateGimbalDown"
+                            service_name="{service_name}"
+                            request_data='action.GIMBAL.RotateByAngle.{"mode":1,"pitch":-45,"roll":0,"yaw":0,"pitchIgnored":false,"rollIgnored":false,"yawIgnored":false,"duration":0,"jointReferenceUsed":false,"timeout":0}'
+                            topic_name="{topic_name}"
+                            success_condition="RotateByAngle.success"
+                            received_data="{received_data}"/>
+                        <SleepNode
+                            msec="500"/>
+                        
+                        <PerformAction name="StartShootPhoto"
+                            service_name="{service_name}"
+                            request_data='action.CAMERA.StartShootPhoto.'
+                            topic_name="{topic_name}"
+                            success_condition="StartShootPhoto.success"
+                            received_data="{received_data}"/>
+                        <SleepNode
+                            msec="500"/>
+                        <PerformAction name="RotateGimbalUp"
+                            service_name="{service_name}"
+                            request_data='action.GIMBAL.RotateByAngle.{"mode":1,"pitch":0,"roll":0,"yaw":0,"pitchIgnored":false,"rollIgnored":false,"yawIgnored":false,"duration":0,"jointReferenceUsed":false,"timeout":0}'
+                            topic_name="{topic_name}"
+                            success_condition="RotateByAngle.success"
+                            received_data="{received_data}"/>
+                        <SleepNode
+                            msec="500"/>
+                    </Sequence>
+              
+                <EndSegment 
+                    segment_completed="{segment_completed}"/>
+            </Sequence>
+            
+            <MissionState 
+                    has_more_waypoints="{has_more_waypoints}"/>
+            
+        </ReactiveSequence>
+    </BehaviorTree>
+</root>
