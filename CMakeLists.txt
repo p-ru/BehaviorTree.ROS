@@ -9,6 +9,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(ROS_DEPENDENCIES
     roscpp std_msgs
+    dji_srvs
     behaviortree_cpp_v3
     actionlib_msgs
     actionlib

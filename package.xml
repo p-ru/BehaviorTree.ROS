@@ -28,6 +28,8 @@
   <build_depend>message_generation</build_depend>
   <run_depend>message_generation</run_depend>
 
+  <build_depend>dji_srvs</build_depend>
+  <run_depend>dji_srvs</run_depend>
 
   <buildtool_depend>catkin</buildtool_depend>
 
