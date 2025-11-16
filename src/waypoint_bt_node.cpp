@@ -99,7 +99,7 @@ private:
     ros::NodeHandle nh_;
     ros::Publisher chase_point_pub_;
     geometry_msgs::Point chase_point;
-    
+    int last_published_index_; 
 
     // Method to set waypoints from external source
     void setWaypoints(const std::vector<Waypoint>& waypoints) {
@@ -115,12 +115,13 @@ public:
         BT::SyncActionNode(name, config), 
         current_index_(0), 
         initialized_(false),
+        last_published_index_(-1), 
         nh_() 
     {
         setWaypoints(myWaypoints);
         // Create publisher for chase point
-        chase_point_pub_ = nh_.advertise<geometry_msgs::Point>("/chase_point", 1);
-        //ROS_INFO("PrintWaypoint: Publishing to /chase_point topic");
+        chase_point_pub_ = nh_.advertise<geometry_msgs::Point>("/chase_point", 1, true);
+        ROS_INFO("PrintWaypoint: Publishing to /chase_point topic");
     }
 
     
@@ -154,12 +155,17 @@ public:
         }
 
 
-        // Publish current waypoint as chase point
-        chase_point.x = waypoints_[current_index_].x;
-        chase_point.y = waypoints_[current_index_].y;
-        chase_point.z = waypoints_[current_index_].z;
-        chase_point_pub_.publish(chase_point);
-        //chase_point_pub_.publish(waypoints_[current_index_]);
+        if (current_index_ != last_published_index_) {
+            chase_point.x = waypoints_[current_index_].x;
+            chase_point.y = waypoints_[current_index_].y;
+            chase_point.z = waypoints_[current_index_].z;
+            chase_point_pub_.publish(chase_point);
+            
+            last_published_index_ = current_index_;
+            
+            ROS_INFO("WaypointManager: Published waypoint %d to /chase_point: (%.2f, %.2f, %.2f)",
+                     current_index_, chase_point.x, chase_point.y, chase_point.z);
+        }
 
 
         auto segment_completed = getInput<bool>("segment_completed");
