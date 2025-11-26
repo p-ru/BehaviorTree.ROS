@@ -1,0 +1,18 @@
+<launch>
+    <env name="ROS_IP" value="192.168.43.76"/>
+
+    <!-- Launch TagSLAM with respawn -->
+    <include file="$(find tagslam)/launch/tagslam_respawn.launch">
+    <arg name="run_online" value="true"/> 
+    <arg name="tagslam_config_file" value="$(find behaviortree_ros)/config/mapping.yaml"/>
+    <arg name="output_type" value="log"/>
+    <arg name="respawn" value="true"/>
+    <arg name="respawn_delay" value="0.1"/>
+
+
+    </include>
+    <!-- Launch apriltag_detector_node.launch -->
+    <include file="$(find tagslam)/launch/apriltag_detector_node.launch"/>
+    <!-- Launch RViz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tagslam)/example/tagslam_example.rviz" />
+</launch>

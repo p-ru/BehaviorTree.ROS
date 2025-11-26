@@ -1,17 +1,38 @@
 waypoints:
-  - x: -2.42
-    y: -0.39
-    z: 1.25
-    id: "start_point"
+- x: -2.8699
+  y: -0.4825
+  z: 1.0604
+  yaw: 0.0
+  id: waypoint_0
+
+- x: -4.0233
+  y: -0.4825
+  z: 1.0604
+  yaw: 0.0
+  id: waypoint_1
+
+- x: -4.0867
+  y: 0.5323
+  z: 1.25
+  yaw: 0.0
+  id: waypoint_2
+
+- x: -4.1034
+  y: 1.5598
+  z: 1.25
+  yaw: 0.0
+  id: waypoint_3
+
+- x: -2.8699
+  y: 0.4992
+  z: 1.0739
+  yaw: 0.0
+  id: waypoint_4
+  
+- x: -1.4889
+  y: -0.6923
+  z: 1.0853
+  yaw: 0.0
+  id: waypoint_5
 
 
-  - x: -4.47
-    y: 0.57
-    z: 1.25
-    id: "point_1"
-
-
-  - x: -2.44
-    y: 0.57
-    z: 1.25
-    id: "end_point"

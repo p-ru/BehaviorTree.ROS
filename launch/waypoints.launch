@@ -1,7 +1,0 @@
-<launch>
-    <rosparam file="$(find behaviortree_ros)/config/waypoints.yaml" command="load"/>
-    <node name="my_waypoint_bt_node" 
-    pkg="behaviortree_ros" 
-    type="waypoint_bt_node" 
-    output="screen"/>
-</launch>

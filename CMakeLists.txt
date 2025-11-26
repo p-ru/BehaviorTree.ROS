@@ -8,13 +8,18 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 ######################################################
 
 set(ROS_DEPENDENCIES
-    roscpp std_msgs
-    dji_srvs
+    roscpp 
     behaviortree_cpp_v3
-    actionlib_msgs
     actionlib
+
+    std_msgs
+    actionlib_msgs
     geometry_msgs
-    message_generation)
+    nav_msgs
+    dji_srvs
+    apriltag_msgs
+    
+    )
 
 find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDENCIES} )
 find_package(GTest)
@@ -48,7 +53,8 @@ generate_messages(
 catkin_package(
     INCLUDE_DIRS include
     LIBRARIES
-    CATKIN_DEPENDS ${ROS_DEPENDENCIES}
+    CATKIN_DEPENDS message_runtime 
+    ${ROS_DEPENDENCIES}
 )
 
 include_directories( include ${catkin_INCLUDE_DIRS})
@@ -76,6 +82,19 @@ target_link_libraries(test_server ${catkin_LIBRARIES} )
 add_executable(waypoint_bt_node src/waypoint_bt_node.cpp)
 add_dependencies(waypoint_bt_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(waypoint_bt_node ${catkin_LIBRARIES} )
+
+add_executable(trajgen_supervisor src/trajgen_supervisor.cpp)
+add_dependencies(trajgen_supervisor ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(trajgen_supervisor ${catkin_LIBRARIES} )
+
+
+
+catkin_install_python(PROGRAMS
+  scripts/record_waypoints.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
 ######################################################
 # INSTALL
 
